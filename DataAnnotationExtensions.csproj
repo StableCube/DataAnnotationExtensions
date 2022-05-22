@@ -8,7 +8,6 @@
     <Title>StableCube.DataAnnotationExtensions</Title>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/StableCube/DataAnnotationExtensions</RepositoryUrl>
   </PropertyGroup>
 
