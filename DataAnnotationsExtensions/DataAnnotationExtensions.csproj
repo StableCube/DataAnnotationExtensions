@@ -4,7 +4,7 @@
     <PackageId>StableCube.DataAnnotationExtensions</PackageId>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <Company>StableCube</Company>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Title>StableCube.DataAnnotationExtensions</Title>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

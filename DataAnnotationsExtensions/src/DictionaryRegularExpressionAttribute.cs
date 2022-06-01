@@ -13,14 +13,19 @@ namespace System.ComponentModel.DataAnnotations
         AllowMultiple = false)]
     public class DictionaryRegularExpressionAttribute : ValidationAttribute
     {
-        public string Pattern { get; set; }
+        public string KeyPattern { get; set; }
+        public string ValuePattern { get; set; }
 
-        public DictionaryRegularExpressionAttribute(string pattern)
+        public DictionaryRegularExpressionAttribute(string keyPattern, string valuePattern)
         {
-            if(string.IsNullOrEmpty(pattern))
-                throw new ArgumentNullException("Must provide a regex pattern");
+            if(string.IsNullOrEmpty(keyPattern))
+                throw new ArgumentNullException("Must provide a regex pattern for the key");
             
-            Pattern = pattern;
+            if(string.IsNullOrEmpty(valuePattern))
+                throw new ArgumentNullException("Must provide a regex pattern for the value");
+
+            KeyPattern = keyPattern;
+            ValuePattern = valuePattern;
         }
 
         public override bool IsValid(object value)
@@ -35,17 +40,18 @@ namespace System.ComponentModel.DataAnnotations
                 return false;
             }
 
-            Regex r = new Regex(Pattern, default(RegexOptions), TimeSpan.FromMilliseconds(50));
+            Regex rKey = new Regex(KeyPattern, default(RegexOptions), TimeSpan.FromMilliseconds(50));
+            Regex rVal = new Regex(ValuePattern, default(RegexOptions), TimeSpan.FromMilliseconds(50));
             foreach (var item in dictionary)
             {
                 string keyString = Convert.ToString(item.Key, CultureInfo.CurrentCulture);
-                Match keyMatch = r.Match(keyString);
+                Match keyMatch = rKey.Match(keyString);
                 string valueString = Convert.ToString(item.Value, CultureInfo.CurrentCulture);
-                Match valueMatch = r.Match(valueString);
+                Match valueMatch = rVal.Match(valueString);
 
                 if(!(keyMatch.Success && keyMatch.Index == 0 && keyMatch.Length == keyString.Length))
                 {
-                    ErrorMessage = $"The key '{item.Key}' in {{0}} does not match the pattern";
+                    ErrorMessage = $"The key '{keyString}' in {{0}} does not match the pattern";
                     return false;
                 }
 
