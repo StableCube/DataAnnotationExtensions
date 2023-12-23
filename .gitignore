@@ -48,6 +48,7 @@ ffmpegBin/*
 *.launch
 .settings/
 *.sublime-workspace
+*.sln
 ############
 # Packages #
 ############
